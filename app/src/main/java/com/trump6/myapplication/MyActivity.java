@@ -16,6 +16,12 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import cz.msebera.android.httpclient.Header;
+
 public class MyActivity extends AppCompatActivity {
 
     @Override
@@ -43,7 +49,30 @@ public class MyActivity extends AppCompatActivity {
             }
         });
 
-        System.out.println("In onCreate");
+        Button postButton = (Button) findViewById(R.id.postButton);
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                String url = "http://trump6.com:5000";
+                RequestParams params = new RequestParams();
+                AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        System.out.println("connection worked!!");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        System.out.println("connection failed");
+                    }
+                };
+
+                client.get(url, params, responseHandler);
+            }
+        });
+
     }
 
     @Override

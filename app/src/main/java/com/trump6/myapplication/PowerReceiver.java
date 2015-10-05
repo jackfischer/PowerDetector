@@ -17,9 +17,10 @@ public class PowerReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        System.out.println("received EVENT!!");
+        System.out.println("received EVENT!!:  ");
 
         String action = intent.getAction();
+        System.out.println(action);
 
         if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
             // Do something when power connected
@@ -30,6 +31,12 @@ public class PowerReceiver extends BroadcastReceiver {
             // Do something when power disconnected
             System.out.println("power DISCONNECTED");
             this.pingServer("DISCONNECTED");
+        }
+
+        if (action.equals(Intent.ACTION_BATTERY_LOW)) {
+            //battery low
+            System.out.println("power LOW");
+            this.pingServer("LOW");
         }
     }
 

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.trump6.myapplication"
+        applicationId "com.trump6.powerdetector"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

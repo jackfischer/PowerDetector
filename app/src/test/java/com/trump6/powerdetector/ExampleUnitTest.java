@@ -1,4 +1,4 @@
-package com.trump6.myapplication;
+package com.trump6.powerdetector;
 
 import org.junit.Test;
 

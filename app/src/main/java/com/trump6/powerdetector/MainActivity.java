@@ -11,10 +11,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-import com.loopj.android.http.*;
-
-import cz.msebera.android.httpclient.Header;
+import com.trump6.powerdetector.ServerAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,23 +44,8 @@ public class MainActivity extends AppCompatActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AsyncHttpClient client = new AsyncHttpClient();
-                String url = "http://trump6.com:5000";
-                RequestParams params = new RequestParams();
-                AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        System.out.println("connection worked!!");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        System.out.println("connection failed");
-                    }
-                };
-
-                client.get(url, params, responseHandler);
+                ServerAPI api = new ServerAPI();
+                api.sendMessage("test_request");
             }
         });
 

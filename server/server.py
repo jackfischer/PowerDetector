@@ -12,44 +12,27 @@ def root():
   print situation
 
   if situation == "LOW":
-    for contact in ["jack", "chris"]:
+    for contact in secret.admins:
       sms = client.messages.create(to=secret.numbers[contact],
           from_=secret.from_num, body="Battery Low")
       return "got it"
 
-  open("itai.txt", 'w').close()
-  f = open("itai.txt", 'w')
+  open("state.txt", 'w').close()
+  f = open("state.txt", 'w')
   f.write(situation)
-  if situation == "CONNECTED":
-    message = "Itai in the house!"
-  if situation == "DISCONNECTED":
-    message = "Itai is gone"
 
   for num in secret.numbers.itervalues():
-    sms = client.messages.create(to=num, from_=secret.from_num, body=message)
+    sms = client.messages.create(to=num, from_=secret.from_num, body=situation)
 
   return "messages sent"
 
 
 @app.route('/read')
 def data():
-  f = "itai.txt"
+  f = "state.txt"
   with open (f, "r") as myfile:
         data=myfile.read().strip()
-  if data == "CONNECTED":
-    response = "Itai is in the house!"
-    image = "itaihappy.jpg"
-    width = "320"
-    height = "240"
-
-  else:
-    data == "DISCONNECTED"
-    response = "Itai is gone :("
-    image = "itaisad.jpg"
-    width = "255"
-    height = "330"
-
-  html = "<html><body><h1>%s</h1><br><div style=\"text-align: center; margin: 0 auto; \"> <img width=\"%s\" height=\"%s\" src=\"http://jackfischer.me/%s\"></div></body></html>" % (response, width, height, image)
+  html = "<html><body><h1>%s</h1></body></html>" % (data)
   return html
 
 
